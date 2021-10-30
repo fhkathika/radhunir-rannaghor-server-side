@@ -52,6 +52,8 @@ async function run(){
      //GET API (load  all orders in Manage order page)
      app.get('/confirmorder',async(req,res)=>{
          console.log(req.body)
+         const result=await orderedCollection.find({}).toArray()
+         res.json(result)
      })
      }
     finally{
