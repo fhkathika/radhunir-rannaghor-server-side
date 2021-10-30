@@ -49,6 +49,10 @@ async function run(){
          const result= await orderedCollection.find({email: req.params.email}).toArray()
          res.json(result)
      })
+     //GET API (load  all orders in Manage order page)
+     app.get('/confirmorder',async(req,res)=>{
+         console.log(req.body)
+     })
      }
     finally{
         // await client.close()
