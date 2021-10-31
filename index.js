@@ -62,6 +62,13 @@ async function run(){
          console.log(`inserted order with id ${result.insertedId}`)
          res.json(result)
      })
+     //DELETE API (delete data from my order)
+     app.delete('/deletemyorder/:id',async(req,res)=>{
+         const id=req.params.id
+         const query={_id : objectId(id)}
+         const result= await orderedCollection.deleteOne(query)
+         res.json(result)
+     })
      }
     finally{
         // await client.close()
