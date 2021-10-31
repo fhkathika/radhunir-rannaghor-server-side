@@ -76,8 +76,22 @@ async function run(){
       const result=await orderedCollection.deleteOne(query)
       res.json(result)  
     })
-     }
-       
+    //PUT API (Update order status)
+    app.put('/updatestatus/:id',async(req,res)=>{
+        const id = req.params.id
+        const updateStatus=req.body
+        const filter ={_id : objectId(id)}
+        const options ={upsert : true}
+        const updateDoc ={
+            $set: {
+                status:updateStatus.status="approved"
+            },
+            
+        }
+        const result =await orderedCollection.updateOne(filter,updateDoc,options)
+        res.json(result)
+     })
+    }  
     finally{
         // await client.close()
     }
