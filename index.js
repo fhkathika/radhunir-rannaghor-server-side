@@ -55,6 +55,13 @@ async function run(){
          const result=await orderedCollection.find({}).toArray()
          res.json(result)
      })
+     //POST API Add new user
+     app.post('/adduser',async(req,res)=>{
+         console.log(req.body)
+         const result=await catering_serviceCollection.insertOne(req.body)
+         console.log(`inserted order with id ${result.insertedId}`)
+         res.json(result)
+     })
      }
     finally{
         // await client.close()
