@@ -5,10 +5,12 @@ require('dotenv').config()
 const objectId=require('mongodb').ObjectId
 const { MongoClient } = require('mongodb');
 const cors=require('cors')
-
+const fileUpload=require('express-fileupload')
 //middleware
 app.use(cors())
 app.use(express.json())
+app.use(fileUpload())
+
 //name: foodCateringService   pass:X8kUMKxb4iWQ5rJK
 // connect to mongo db
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.he9di.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
@@ -58,7 +60,22 @@ async function run(){
      //POST API Add new user
      app.post('/adduser',async(req,res)=>{
          console.log(req.body)
-         const result=await catering_serviceCollection.insertOne(req.body)
+         const name=req.body.itemname
+         const detail=req.body.detail
+         const price=req.body.price
+         const pic=req.files.image;
+         const picData=pic.data;
+         const encodedPic=picData.toString('base64');
+         const imageBuffer=Buffer.from(encodedPic,'base64')
+         const addItem={
+            name,
+            detail,
+            price,
+           image: imageBuffer
+
+         }
+
+         const result=await catering_serviceCollection.insertOne(addItem)
          console.log(`inserted order with id ${result.insertedId}`)
          res.json(result)
      })
