@@ -63,7 +63,7 @@ async function run(){
          const name=req.body.itemname
          const detail=req.body.detail
          const price=req.body.price
-         const pic=req.files.image;
+         const pic=req.files.img;
          const picData=pic.data;
          const encodedPic=picData.toString('base64');
          const imageBuffer=Buffer.from(encodedPic,'base64')
@@ -71,7 +71,7 @@ async function run(){
             name,
             detail,
             price,
-           image: imageBuffer
+           img: imageBuffer
 
          }
 
